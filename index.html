@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4e2f1d" />
+    <title>Style Coffee | Kasir Cafe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div id="authScreen" class="auth-screen">
+        <div class="auth-card">
+          <div class="brand-block">
+            <div class="brand-mark pacifico-text">S</div>
+            <div>
+              <h1 class="brand-name">Style Coffe</h1>
+              <p>Cashier System</p>
+            </div>
+          </div>
+
+          <div class="auth-tabs">
+            <button class="tab-btn active" type="button" data-auth-tab="login">Login</button>
+            <button class="tab-btn" type="button" data-auth-tab="register">Daftar</button>
+          </div>
+
+          <form id="loginForm" class="auth-form active" autocomplete="on">
+            <label>
+              <span>Email</span>
+              <input type="email" id="loginEmail" placeholder="kasir@gmail.com" required />
+              <span id="emailError" class="error-message"></span>
+            </label>
+            <label>
+              <span>Password</span>
+              <div class="password-container">
+                <input type="password" id="loginPassword" placeholder="Masukkan password" required />
+                <button type="button" id="togglePasswordBtn" class="toggle-password-btn" title="Lihat password">👁️</button>
+              </div>
+              <span id="passwordError" class="error-message"></span>
+            </label>
+            <button type="submit" class="primary-btn">Masuk ke kasir</button>
+          </form>
+
+          <form id="registerForm" class="auth-form" autocomplete="on">
+            <label>
+              <span>Nama kasir</span>
+              <input type="text" id="registerName" placeholder="Nama lengkap" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" id="registerEmail" placeholder="contoh@email.com" required />
+            </label>
+            <label>
+              <span>Password</span>
+              <input type="password" id="registerPassword" placeholder="Buat password" required />
+            </label>
+            <label>
+              <span>Konfirmasi password</span>
+              <input type="password" id="confirmPassword" placeholder="Ulangi password" required />
+            </label>
+            <button type="submit" class="primary-btn">Daftar akun</button>
+          </form>
+        </div>
+      </div>
+
+      <main id="app" class="app hidden">
+        <header class="topbar">
+          <div class="brand-group">
+            <div class="brand-mini pacifico-text">S</div>
+            <div>
+              <p class="eyebrow">Cafe & Coffee House</p>
+              <h2>Style Coffe</h2>
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <div class="clock-box">
+              <span class="clock-label">Jam</span>
+              <strong id="liveClock">--:--:--</strong>
+            </div>
+            <div id="connectionStatus" class="connection-pill online">Online</div>
+            <button id="logoutBtn" class="logout-btn" type="button">Logout</button>
+          </div>
+        </header>
+
+        <section class="profile-banner">
+          <div class="cashier-profile">
+            <img id="profilePhotoDisplay" class="profile-photo" alt="Foto profil" />
+            <div>
+              <p class="eyebrow">Profil kasir</p>
+              <h3 id="cashierName">Kasir Baru</h3>
+              <span id="cashierEmail">kasir@stylecoffe.com</span>
+            </div>
+          </div>
+
+          <div class="info-badges">
+            <button id="historyBtn" type="button" class="text-btn">Riwayat</button>
+          </div>
+        </section>
+
+        <div id="historyModal" class="modal hidden">
+          <div class="modal-content modal-large">
+            <div class="modal-header">
+              <h2>Riwayat Pembayaran</h2>
+              <button id="closeHistoryModal" type="button" class="close-btn">×</button>
+            </div>
+            <div id="historyList" class="history-list"></div>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <section class="menu-panel panel-card">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Menu favorit</p>
+                <h3>Daftar minuman & makanan</h3>
+              </div>
+            </div>
+            <div class="category-tabs">
+              <button class="category-btn active" data-category="all">Semua</button>
+              <button class="category-btn" data-category="minuman">Minuman</button>
+              <button class="category-btn" data-category="makanan">Makanan</button>
+            </div>
+            <div id="menuList" class="menu-list"></div>
+          </section>
+
+          <aside class="order-panel panel-card">
+            <div class="table-box">
+              <label for="tableNumber">Nomor meja</label>
+              <input id="tableNumber" type="number" min="1" placeholder="Contoh: 5" />
+            </div>
+
+            <div class="order-summary">
+              <div class="summary-header">
+                <h3>Pesanan</h3>
+                <button id="clearOrderBtn" type="button" class="text-btn">Hapus</button>
+              </div>
+              <div id="orderItems" class="order-items"></div>
+              <div class="total-row">
+                <span>Subtotal</span>
+                <strong id="subtotalValue">Rp 0</strong>
+              </div>
+              <div class="total-row">
+                <span>PPN</span>
+                <strong id="taxValue">Rp 0</strong>
+              </div>
+              <div class="total-row grand-total">
+                <span>Total</span>
+                <strong id="totalValue">Rp 0</strong>
+              </div>
+            </div>
+
+            <div class="receipt-box">
+              <div class="receipt-header">
+                <h3>Struk</h3>
+                <button id="copyReceiptBtn" type="button" class="text-btn">Salin</button>
+              </div>
+              <div id="receiptContent" class="receipt-content"></div>
+            </div>
+
+            <div class="payment-section">
+              <label>Metode Pembayaran</label>
+              <div class="payment-methods">
+                <label class="payment-option">
+                  <input type="radio" name="paymentMethod" value="tunai" checked />
+                  <span>💰 Tunai</span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="paymentMethod" value="qris" />
+                  <span>📱 QRIS</span>
+                </label>
+              </div>
+
+              <div id="qrisContainer" class="qris-container hidden">
+                <p class="qris-instruction">Scan QRIS di bawah ini untuk pembayaran:</p>
+                <img src="WhatsApp Image 2026-09-05 at 11.08.57.jpeg" alt="QRIS Payment" class="qris-image" />
+              </div>
+
+              <label for="paymentAmount" style="margin-top: 12px;">Jumlah Pembayaran</label>
+              <input type="number" id="paymentAmount" placeholder="Rp 0" min="0" />
+            </div>
+
+            <button id="printBtn" type="button" class="primary-btn wide-btn">Cetak & Bayar</button>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
